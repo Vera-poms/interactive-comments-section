@@ -8,7 +8,7 @@ const Attribution = () => {
         Frontend Mentor
        </a>. 
        Coded by 
-       <a className='text-link-color' href="#">
+       <a className='text-link-color' href="https://www.frontendmentor.io/vera-poms" target="_blank">
         Vera Ama Pomaa
        </a>.
      </div>
