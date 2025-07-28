@@ -41,7 +41,13 @@ const Comments = () => {
   const [targetDeleteId, setTargetDeleteId] = useState(null)
 
 
-
+const collectScores = (items, map = {}) => {
+          items.forEach(item => {
+            map[item.id] = item.score || 0
+            if(item.replies?.length) collectScores(item.replies, map)
+          })
+          return map
+        }
 
 
   useEffect(() => {
@@ -88,13 +94,7 @@ const Comments = () => {
         const fetchedComments = data.comments || []
         const initialScores = collectScores(fetchedComments)
 
-        const collectScores = (items, map = {}) => {
-          items.forEach(item => {
-            map[item.id] = item.score || 0
-            if(item.replies?.length) collectScores(item.replies, map)
-          })
-          return map
-        }
+        
 
       
         localStorage.setItem('comments', JSON.stringify(fetchedComments))
