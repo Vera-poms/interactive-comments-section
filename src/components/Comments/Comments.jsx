@@ -287,8 +287,6 @@ const Comments = () => {
         className='flex justify-center items-center'
         />
       <div className='pt-10 '>
-        
-        
         {
         comments.map((comment) => {
           const commentScore = score[comment.id]
@@ -296,7 +294,7 @@ const Comments = () => {
 
          return (
           <div key={comment.id}
-          className=' pb-5 md:px-30 lg:px-60'>
+          className=' pb-5  md:px-30 lg:px-60'>
             <div className='mx-5 p-4 shadow-sm rounded-lg bg-white md:flex md:flex-row'>
               <div className='md:order-2 md:flex-3'>
                 <div className='flex justify-between items-center'>
@@ -442,7 +440,7 @@ const Comments = () => {
         )})}
 
         
-        <div className='mx-4 my-2 rounded-lg shadow-md p-5 bg-white md:flex md:flex-row md:pb-0 md:mx-35 lg:mx-65'>
+        <div className='mx-4 my-2 rounded-lg shadow-md p-5 bg-white md:flex md:flex-row md:mx-35 lg:mx-65'>
          <div className='md:order-2 md:flex-2 md:mr-3 md:pb-0'>
            <textarea placeholder='Add a comment...' 
           value={newCommentText} onChange={handleCommentChange} className='border-2 border-light-gray w-full h-35 rounded-lg px-5 py-3 md:h-20 focus:outline focus:outline-grayish-blue'></textarea>

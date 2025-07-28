@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap');
 @import "tailwindcss";
 
-/* body{
-  background-color: hsl(225,0,1);
-} */
+
+
  @theme{
   --color-background: #f5f6f9;
   --color-link-color: hsl(228, 45%, 44%);

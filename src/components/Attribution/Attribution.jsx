@@ -5,7 +5,7 @@ const Attribution = () => {
       <div className="text-[11px] text-center bg-background">
        Challenge by 
        <a className='text-link-color' href="https://www.frontendmentor.io?ref=challenge" target="_blank">
-       Frontend Mentor
+        Frontend Mentor
        </a>. 
        Coded by 
        <a className='text-link-color' href="#">
