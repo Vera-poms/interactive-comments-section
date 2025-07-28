@@ -24,8 +24,8 @@ This is a solution to the [Interactive comments section challenge on Frontend Me
 
 ### Links
 
-- Solution URL: [](https://github.com/Vera-poms/interactive-comments-section)
-- Live Site URL: [](https://interactivecommentsverapoms.netlify.app
+- Solution URL: [Github](https://github.com/Vera-poms/interactive-comments-section)
+- Live Site URL: [Live site](https://interactivecommentsverapoms.netlify.app
 )
 
 ## My process
@@ -54,5 +54,5 @@ I would like to do the dark mode for the version this already created one.
 
 ## Author
 
-- Website - [Vera Ama Pomaa](https://www.your-site.com)
+- Website - [Vera Ama Pomaa](https://interactivecommentsverapoms.netlify.app/)
 - Frontend Mentor - [@vera-poms](https://www.frontendmentor.io/profile/vera-poms)
