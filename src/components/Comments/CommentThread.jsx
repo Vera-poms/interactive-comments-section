@@ -6,6 +6,10 @@ import UserActionButtons from '../UserActions/UserActionButtons.jsx'
 
 const CommentThread = ({node, currentUser, score, editingId, editedContent, setEditedContent, setEditingId, updateScore, deleteReply, saveEditedContent, newReplyText, setNewReplyText, setActiveReplyComment, setActiveReplyReply, setReplyState, addReply, activeReplyTargetId, setActiveReplyTargetId, handleReplyChange, voted, setTargetDeleteId, setShowModal
 }) => {
+
+  const replyScore = typeof score[node.id] === 'number' ? score[node.id] : 0
+
+  console.log(score[node.id])
   return (
     <div className=''>
       <div
@@ -50,7 +54,7 @@ const CommentThread = ({node, currentUser, score, editingId, editedContent, setE
           
           {editingId === node.id ? (
             <>
-              <textarea className="border-2 border-light-gray w-full h-35 rounded-lg px-5 py-3 md:h-20"
+              <textarea className="border-2 border-light-gray w-full h-35 rounded-lg px-5 py-3 md:h-20 focus:outline focus:outline-grayish-blue"
               value={editedContent}
               onChange={(e) => setEditedContent(e.target.value)}/>
 
@@ -79,7 +83,7 @@ const CommentThread = ({node, currentUser, score, editingId, editedContent, setE
               onClick={() => updateScore(node.id, 'up')}
               >+</button>
               <p className='text-md px-3 text-moderate-blue'
-              >{score[node.id]}</p>
+              >{replyScore ?? 0}</p>
               <button className='text-soft-grayish-blue text-xl cursor-pointer hover:text-moderate-blue'
               onClick={() => updateScore(node.id, 'down')}
               >-</button>

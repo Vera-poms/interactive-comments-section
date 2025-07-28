@@ -43,8 +43,41 @@ const Comments = () => {
 
 
 
+
   useEffect(() => {
-    fetch('../../../data.json')
+    const savedComments = localStorage.getItem('comments')
+    const savedScores = localStorage.getItem('score')
+    const savedUser = localStorage.getItem('currentUser')
+
+    let shouldFetch = false
+
+    if(savedComments ){
+      console.log('Found comments')
+      setComments(JSON.parse(savedComments))
+    }else{
+      shouldFetch = true
+    }
+
+    if( savedScores){
+      console.log('Found scores')
+      setScore(JSON.parse(savedScores))
+    }else{
+      shouldFetch = true
+    }
+
+    if( savedUser){
+      const parsedUser = JSON.parse(savedUser)
+      console.log('Found user', parsedUser)
+
+      setCurrentUser(JSON.parse(savedUser))
+    }else{
+      shouldFetch = true
+    }
+
+    if(shouldFetch){
+      console.log('Fetching... ')
+
+    fetch('/data.json')
       .then(res => {
         if(!res.ok){
           throw new Error('Failed to fetch data')
@@ -53,27 +86,46 @@ const Comments = () => {
       })
       .then(data => {
         const fetchedComments = data.comments || []
+        const initialScores = collectScores(fetchedComments)
 
-        setComments(fetchedComments)
+        const collectScores = (items, map = {}) => {
+          items.forEach(item => {
+            map[item.id] = item.score || 0
+            if(item.replies?.length) collectScores(item.replies, map)
+          })
+          return map
+        }
+
+      
+        localStorage.setItem('comments', JSON.stringify(fetchedComments))
+        localStorage.setItem('score', JSON.stringify(initialScores))
+        localStorage.setItem('currentUser', JSON.stringify(data.currentUser))
         setCurrentUser(data.currentUser)
-
-        const initialScores = {}
-
-        fetchedComments.forEach(comment => {
-          initialScores[comment.id] = comment.score
-
-          if(Array.isArray(comment.replies)){
-            comment.replies.forEach(reply => {
-              initialScores[reply.id] = reply.score
-            })
-          }
-        })
-        setScore(initialScores) 
+        setComments(fetchedComments)
+        setScore(initialScores)
         
       })
+      .catch(err => {
+          console.error('Failed fetch:', err)
+        })
+    }
   }, [])
 
-  if (!currentUser) return <p>Loading...</p>;
+  useEffect(() => {
+    if(comments.length > 0){
+    console.log('Saved comments...')
+    localStorage.setItem('comments', JSON.stringify(comments))
+    }
+  }, [comments])
+
+  useEffect(() => {
+    if(Object.keys(score).length > 0){
+    console.log('Saved scores...')
+    localStorage.setItem('score', JSON.stringify(score))
+    }
+  }, [score])
+
+  if (!currentUser || !Array.isArray(comments)) return <p>Loading...</p>;
     
   function handleCommentChange(e){
     setNewCommentText(e.target.value)
@@ -283,7 +335,7 @@ const Comments = () => {
 
                   {editingId === comment.id ? (
                     <>
-                      <textarea className="border-2 border-light-gray w-full h-35 rounded-lg px-5 py-3 md:h-20"
+                      <textarea className="border-2 border-light-gray w-full h-35 rounded-lg px-5 py-3 md:h-20 focus:outline focus:outline-grayish-blue"
                       value={editedContent}
                       onChange={(e) => setEditedContent(e.target.value)}/>
 
@@ -313,7 +365,7 @@ const Comments = () => {
                   
                   >+</button>
                   <p className='text-md px-3 text-moderate-blue'
-                  >{commentScore}</p>
+                  >{commentScore ?? 0}</p>
                   <button className='text-soft-grayish-blue text-xl cursor-pointer hover:text-moderate-blue'
                   onClick={() => updateScore(comment.id, 'down')}
                   >-</button>
@@ -393,7 +445,7 @@ const Comments = () => {
         <div className='mx-4 my-2 rounded-lg shadow-md p-5 bg-white md:flex md:flex-row md:pb-0 md:mx-35 lg:mx-65'>
          <div className='md:order-2 md:flex-2 md:mr-3 md:pb-0'>
            <textarea placeholder='Add a comment...' 
-          value={newCommentText} onChange={handleCommentChange} className='border-2 border-light-gray w-full h-35 rounded-lg px-5 py-3 md:h-20 '></textarea>
+          value={newCommentText} onChange={handleCommentChange} className='border-2 border-light-gray w-full h-35 rounded-lg px-5 py-3 md:h-20 focus:outline focus:outline-grayish-blue'></textarea>
          </div>
 
          <div className='flex justify-between items-center pt-3 md:pt-0'>

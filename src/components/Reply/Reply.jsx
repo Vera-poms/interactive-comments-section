@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import data from '../../../data.json'
+
 
 const Reply = ({addReply, setActiveReplyTargetId, setActiveReplyComment, commentId, newReplyText, setNewReplyText, setActiveReplyReply}) => {
 
@@ -16,7 +16,7 @@ const Reply = ({addReply, setActiveReplyTargetId, setActiveReplyComment, comment
     <div>
      <div className='mx-4 my-2 rounded-lg shadow-md p-5 bg-white md:flex md:flex-row md:pb-0 md:my-3'>
          <div className='md:order-2 md:flex-2 md:mr-3 md:pb-0'>
-           <textarea placeholder='Add a reply...' className='border-2 border-light-gray w-full h-35 rounded-lg px-5 py-3 md:h-20 '
+           <textarea placeholder='Add a reply...' className='border-2 border-light-gray w-full h-35 rounded-lg px-5 py-3 md:h-20 focus:outline focus:outline-grayish-blue'
            value={newReplyText}
            onChange={(e) => setNewReplyText(e.target.value)}></textarea>
          </div>
